@@ -5,7 +5,7 @@ import { TTodo } from './TodoList';
 import TodoItem from './TodoItem';
 
 interface ITodoItemsProps {
-  todos: TTodo[];
+  todos: TTodo[] | undefined;
   onDelete: (id: string) => void;
   onUpdate: (todo: TTodo) => void;
 }
@@ -20,7 +20,7 @@ const TodoItems = ({ todos, onDelete, onUpdate }: ITodoItemsProps) => {
   return (
     <>
       <ul>
-        {todos.map((todo) => (
+        {todos?.map((todo) => (
           <TodoItem
             key={todo.id}
             todoItem={todo}
