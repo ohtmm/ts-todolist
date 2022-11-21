@@ -1,13 +1,12 @@
 import { useRef, useState } from 'react';
-import { TTodo } from './TodoList';
-
+import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
+import { TTodo } from '../../types/type';
+import { GrAdd } from 'react-icons/gr';
 
 interface ITodoInputProps {
   onAdd: (todo: TTodo) => void;
 }
-
-// submit event 발생 시 inputref.current.value 사용하는 거 안됨?
 
 const TodoInput = ({ onAdd }: ITodoInputProps) => {
   const [inputValue, setInputValue] = useState('');
@@ -31,17 +30,50 @@ const TodoInput = ({ onAdd }: ITodoInputProps) => {
     setInputValue(e.currentTarget.value);
   };
   return (
-    <form onSubmit={onSubmit}>
-      <input
+    <AddForm onSubmit={onSubmit}>
+      <AddInput
         type='text'
-        placeholder='할 일을 입력하세요'
+        placeholder='완벽함이 아니라 성장을 생각하자'
         onChange={onChange}
         value={inputValue}
         ref={inputRef}
       />
-      <button>추가</button>
-    </form>
+      <Button>해보자</Button>
+    </AddForm>
   );
 };
 
 export default TodoInput;
+
+export const AddForm = styled.form`
+  position: absolute;
+  top: -4rem;
+  right: 0;
+  display: flex;
+  justify-content: right;
+  width: 90%;
+  height: 10%;
+  margin: 0 auto;
+`;
+
+export const AddInput = styled.input`
+  width: 80%;
+  height: 90%;
+  padding-left: 1rem;
+  margin-right: 1rem;
+  font-size: 2rem;
+  border-radius: 8px;
+  border: 1px solid ${(props) => props.theme.color.gray200};
+`;
+
+export const Button = styled.button`
+  display: block;
+  width: 6rem;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  color: ${(props) => props.theme.color.fontWhite};
+  background-color: ${(props) => props.theme.color.fontBlack};
+  cursor: pointer;
+`;

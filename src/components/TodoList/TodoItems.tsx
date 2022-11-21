@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import Todo from './TodoItem';
-import TodoEdit from './TodoEdit';
-import { TTodo } from './TodoList';
 import TodoItem from './TodoItem';
+import { TTodo } from '../../types/type';
+import styled from 'styled-components';
 
 interface ITodoItemsProps {
   todos: TTodo[] | undefined;
@@ -18,19 +17,31 @@ const TodoItems = ({ todos, onDelete, onUpdate }: ITodoItemsProps) => {
   });
 
   return (
-    <>
-      <ul>
-        {todos?.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            todoItem={todo}
-            onDelete={onDelete}
-            onUpdate={onUpdate}
-          />
-        ))}
-      </ul>
-    </>
+    <TodoListContainer>
+      {todos?.map((todo) => (
+        <TodoItem
+          key={todo.id}
+          todoItem={todo}
+          onDelete={onDelete}
+          onUpdate={onUpdate}
+        />
+      ))}
+    </TodoListContainer>
   );
 };
 
 export default TodoItems;
+
+const TodoListContainer = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-content: flex-start;
+  width: 80%;
+  height: 70%;
+  margin: 4rem auto;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;

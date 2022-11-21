@@ -2,33 +2,23 @@ import { useEffect, useState } from 'react';
 import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
 import { v4 as uuidv4 } from 'uuid';
-
-export type TTodo = {
-  id: string;
-  todo: string;
-  isDone: boolean;
-};
-
-export type TFilter = 'All' | 'Left' | 'Done';
+import { TTodo } from '../../types/type';
+import getFilteredTodos from '../../utils/getFilteredTodos';
+import styled from 'styled-components';
 
 interface ITodoListProps {
   filter: string;
 }
 
 const TodoList = ({ filter }: ITodoListProps) => {
-  const [todos, setTodos] = useState<TTodo[]>([
-    {
-      id: uuidv4(),
-      todo: 'react',
-      isDone: false,
-    },
-  ]);
+  const [todos, setTodos] = useState<TTodo[]>([]);
 
   useEffect(() => {
     todos.forEach((item) => {
       localStorage.setItem(item.id, JSON.stringify(item));
     });
   }, []);
+
   const handleAdd = (newTodo: TTodo) => {
     setTodos((prev) => [...prev, newTodo]);
     localStorage.setItem(newTodo.id, JSON.stringify(newTodo));
@@ -54,27 +44,22 @@ const TodoList = ({ filter }: ITodoListProps) => {
 
   const filterd = getFilteredTodos(todos, filter);
   return (
-    <div>
+    <TodoContainer>
       <TodoInput onAdd={handleAdd} />
       <TodoItems
         todos={filterd}
         onDelete={handleDelete}
         onUpdate={handleUpdate}
       />
-    </div>
+    </TodoContainer>
   );
 };
 
-function getFilteredTodos(todos: TTodo[], filter: string) {
-  if (filter === 'All') {
-    return todos;
-  }
-  if (filter === 'Done') {
-    return todos.filter((todo) => todo.isDone === true);
-  }
-  if (filter === 'Left') {
-    return todos.filter((todo) => todo.isDone === false);
-  }
-}
-
 export default TodoList;
+
+const TodoContainer = styled.div`
+  position: relative;
+  margin-top: 8rem;
+  width: 100%;
+  height: 40rem;
+`;

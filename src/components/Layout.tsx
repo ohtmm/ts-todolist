@@ -12,6 +12,11 @@ const Layout = ({ children }: TLayoutProps) => {
 export default Layout;
 
 const LayoutContainer = styled.div`
-  width: 20rem;
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 72rem;
+  height: 50rem;
+  margin: 2rem auto;
+  padding-top: 8rem;
 `;

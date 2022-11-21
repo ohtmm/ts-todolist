@@ -1,5 +1,3 @@
-import { TFilter } from './TodoList/TodoList';
-
 interface ISelectProps {
   onSelect: (filterName: string) => void;
 }

@@ -1,12 +1,14 @@
-import { TTodo } from './TodoList';
 import { useState } from 'react';
+import styled from 'styled-components';
+import { TTodo } from '../../types/type';
+import { AddForm, AddInput, Button } from './TodoInput';
 
-interface ITodoEdit {
+interface ITodoEditProps {
   prevTodo: TTodo;
   onUpdate: (todo: TTodo) => void;
   onEdit: (editStatus: boolean) => void;
 }
-const TodoEdit = ({ prevTodo, onUpdate, onEdit }: ITodoEdit) => {
+const TodoEdit = ({ prevTodo, onUpdate, onEdit }: ITodoEditProps) => {
   const [editTodoText, setEditTodoText] = useState(prevTodo.todo);
   const handleEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditTodoText(e.currentTarget.value);
@@ -21,11 +23,31 @@ const TodoEdit = ({ prevTodo, onUpdate, onEdit }: ITodoEdit) => {
     onEdit(false);
   };
   return (
-    <form onSubmit={handleEditDone}>
-      <input type='text' value={editTodoText} onChange={handleEdit} />
-      <button>수정 완료</button>
-    </form>
+    <TodoEditContainer onSubmit={handleEditDone}>
+      <TodoEditInput type='text' value={editTodoText} onChange={handleEdit} />
+      <EditButton>수정 끝!</EditButton>
+    </TodoEditContainer>
   );
 };
 
 export default TodoEdit;
+
+const TodoEditContainer = styled(AddForm)`
+  position: absolute;
+  top: 0.3rem;
+  left: -4.8rem;
+  width: 68.5rem;
+  height: 3.2rem;
+
+  background-color: ${(props) => props.theme.color.gray100};
+`;
+
+const TodoEditInput = styled(AddInput)`
+  color: ${(props) => props.theme.color.fontWhite};
+  background-color: ${(props) => props.theme.color.gray200};
+`;
+
+const EditButton = styled(Button)`
+  font-weight: 400;
+  background-color: #487eb0;
+`;
