@@ -24,18 +24,26 @@ const TodoList = ({ filter }: ITodoListProps) => {
     },
   ]);
 
+  useEffect(() => {
+    todos.forEach((item) => {
+      localStorage.setItem(item.id, JSON.stringify(item));
+    });
+  }, []);
   const handleAdd = (newTodo: TTodo) => {
     setTodos((prev) => [...prev, newTodo]);
+    localStorage.setItem(newTodo.id, JSON.stringify(newTodo));
   };
   const handleDelete = (todoId: string) => {
     const newTodos = todos.filter((todo) => todo.id !== todoId);
     setTodos(newTodos);
+    localStorage.removeItem(todoId);
   };
   const handleUpdate = (updatedTodo: TTodo) => {
     const newTodos = todos.map((todo) => {
       return todo.id === updatedTodo.id ? updatedTodo : todo;
     });
     setTodos(newTodos);
+    localStorage.setItem(updatedTodo.id, JSON.stringify(updatedTodo));
   };
 
   // const filterd = todos.filter((todo) => {
