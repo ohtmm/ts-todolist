@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
     html,body{
         font-size:10px;
         font-family: -apple-system, 'Noto Sans KR', sans-serif;
-        background-color: ${(props) => props.theme.color.gray100};
+        background-color: ${(props) => props.theme.color.primary};
     }
     a{
         text-decoration: none;

@@ -8,6 +8,7 @@ export const HeaderContainer = styled.header`
     font-size: 8rem;
     font-weight: 700;
     text-align: center;
+    color: ${(props) => props.theme.color.textPrimary};
   }
   select {
     display: block;
@@ -18,6 +19,28 @@ export const HeaderContainer = styled.header`
     font-size: large;
     font-weight: 700;
     border-radius: 10px;
+    color: ${(props) => props.theme.color.textPrimary};
+    background-color: ${(props) => props.theme.color.primary};
+  }
+`;
+
+export const ToggleDarkButton = styled.div`
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5rem;
+  height: 5rem;
+  font-size: x-large;
+  cursor: pointer;
+  color: ${(props) => props.theme.color.bgBtnAdd};
+  background-color: ${(props) => props.theme.color.textBtnAdd};
+  transition: all 0.5s linear;
+  border-radius: 100%;
+  :hover {
+    scale: 1.2;
   }
 `;
 
@@ -38,6 +61,7 @@ export const TodoContainer = styled.div`
   margin-top: 8rem;
   width: 100%;
   height: 40rem;
+  color: ${(props) => props.theme.color.textPrimary};
 `;
 
 // TodoInput
@@ -59,7 +83,9 @@ export const AddInput = styled.input`
   margin-right: 1rem;
   font-size: 2rem;
   border-radius: 8px;
-  border: 1px solid ${(props) => props.theme.color.gray200};
+  color: ${(props) => props.theme.color.textPrimary};
+  background-color: ${(props) => props.theme.color.textBtnAdd};
+  border: 1px solid ${(props) => props.theme.color.secondary};
 `;
 
 export const Button = styled.button`
@@ -69,8 +95,8 @@ export const Button = styled.button`
   border: none;
   border-radius: 10px;
   font-weight: 700;
-  color: ${(props) => props.theme.color.fontWhite};
-  background-color: ${(props) => props.theme.color.fontBlack};
+  color: ${(props) => props.theme.color.textBtnAdd};
+  background-color: ${(props) => props.theme.color.bgBtnAdd};
   cursor: pointer;
 `;
 
@@ -82,12 +108,12 @@ export const TodoEditContainer = styled(AddForm)`
   width: 68.5rem;
   height: 3.2rem;
 
-  background-color: ${(props) => props.theme.color.gray100};
+  background-color: ${(props) => props.theme.color.primary};
 `;
 
 export const TodoEditInput = styled(AddInput)`
-  color: ${(props) => props.theme.color.fontWhite};
-  background-color: ${(props) => props.theme.color.gray200};
+  color: ${(props) => props.theme.color.bgInputEdit};
+  background-color: ${(props) => props.theme.color.secondary};
 `;
 
 export const EditButton = styled(Button)`
@@ -107,5 +133,40 @@ export const TodoListContainer = styled.ul`
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
+  }
+`;
+
+// TodoItem
+
+export const TodoItemContainer = styled.li`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 4rem;
+  font-size: large;
+  border-bottom: 1px solid ${(props) => props.theme.color.secondary};
+`;
+
+export const TodoItemCheck = styled.input`
+  width: 2rem;
+  height: 2rem;
+`;
+
+export const ButtonContainer = styled.div`
+  button {
+    width: 4rem;
+    height: 3rem;
+    margin-right: 0.4rem;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    background-color: ${(props) => props.theme.color.bgBtnUpdate};
+    cursor: pointer;
+
+    &:nth-of-type(1) {
+      background-color: ${(props) => props.theme.color.bgBtnDelete};
+    }
   }
 `;

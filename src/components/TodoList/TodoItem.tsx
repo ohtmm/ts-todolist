@@ -1,6 +1,10 @@
 import { useState } from 'react';
-import styled from 'styled-components';
 import { TTodo } from '../../types/type';
+import {
+  ButtonContainer,
+  TodoItemCheck,
+  TodoItemContainer,
+} from '../styleComponents/styleComponents';
 import TodoEdit from './TodoEdit';
 
 interface ITodoProps {
@@ -44,36 +48,3 @@ const TodoItem = ({ todoItem, onDelete, onUpdate }: ITodoProps) => {
 };
 
 export default TodoItem;
-
-const TodoItemContainer = styled.li`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 4rem;
-  font-size: large;
-  border-bottom: 1px solid ${(props) => props.theme.color.gray200};
-`;
-
-const TodoItemCheck = styled.input`
-  width: 2rem;
-  height: 2rem;
-`;
-
-const ButtonContainer = styled.div`
-  button {
-    width: 4rem;
-    height: 3rem;
-    margin-right: 0.4rem;
-    border: none;
-    border-radius: 6px;
-    color: white;
-    background-color: ${(props) => props.theme.color.warning};
-    cursor: pointer;
-
-    &:nth-of-type(1) {
-      background-color: ${(props) => props.theme.color.error};
-    }
-  }
-`;
