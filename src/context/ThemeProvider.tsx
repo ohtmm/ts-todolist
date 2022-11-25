@@ -21,16 +21,13 @@ export const ThemeContext = createContext<ContextProps>({
 function ThemeProvider({ children }: IThemeProvider) {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleDarkMode = () => {
-    if (isDarkMode) {
+    if (!isDarkMode) {
+      localStorage.setItem('theme', 'dark');
+    } else {
+      localStorage.removeItem('theme');
     }
     setIsDarkMode((prev) => !prev);
   };
-
-  useEffect(() => {
-    if (isDarkMode) {
-      localStorage.setItem('theme', 'dark');
-    }
-  }, []);
 
   return (
     <ThemeContext.Provider
@@ -39,7 +36,9 @@ function ThemeProvider({ children }: IThemeProvider) {
         toggleDarkMode,
       }}
     >
-      <StyledProvider theme={isDarkMode ? DarkTheme : LightTheme}>
+      <StyledProvider
+        theme={localStorage.getItem('theme') ? DarkTheme : LightTheme}
+      >
         {children}
       </StyledProvider>
     </ThemeContext.Provider>
