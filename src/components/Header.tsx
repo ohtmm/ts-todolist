@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { HeaderContainer } from './styleComponents/styleComponents';
 
 interface IHeaderProps {
   onSelect: (filterValue: string) => void;
@@ -22,23 +22,3 @@ const Header = ({ onSelect }: IHeaderProps) => {
 };
 
 export default Header;
-
-const HeaderContainer = styled.header`
-  width: 100%;
-  height: 8rem;
-  h1 {
-    font-size: 8rem;
-    font-weight: 700;
-    text-align: center;
-  }
-  select {
-    display: block;
-    margin-top: 4rem;
-    width: 8rem;
-    height: 4rem;
-    padding-left: 1rem;
-    font-size: large;
-    font-weight: 700;
-    border-radius: 10px;
-  }
-`;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import TodoItem from './TodoItem';
 import { TTodo } from '../../types/type';
-import styled from 'styled-components';
+import { TodoListContainer } from '../styleComponents/styleComponents';
 
 interface ITodoItemsProps {
   todos: TTodo[] | undefined;
@@ -31,17 +31,3 @@ const TodoItems = ({ todos, onDelete, onUpdate }: ITodoItemsProps) => {
 };
 
 export default TodoItems;
-
-const TodoListContainer = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: left;
-  align-content: flex-start;
-  width: 80%;
-  height: 70%;
-  margin: 4rem auto;
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;

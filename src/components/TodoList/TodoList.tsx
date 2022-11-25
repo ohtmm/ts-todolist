@@ -1,17 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import TodoInput from './TodoInput';
 import TodoItems from './TodoItems';
-import { v4 as uuidv4 } from 'uuid';
 import { TTodo } from '../../types/type';
 import getFilteredTodos from '../../utils/getFilteredTodos';
-import styled from 'styled-components';
+import { TodoContainer } from '../styleComponents/styleComponents';
+import { reducer } from '../../utils/todosReducer';
 
 interface ITodoListProps {
   filter: string;
 }
 
-const TodoList = ({ filter }: ITodoListProps) => {
-  const [todos, setTodos] = useState<TTodo[]>([]);
+const initialTodos: TTodo[] = [];
+
+function TodoList({ filter }: ITodoListProps) {
+  const [todos, dispatch] = useReducer(reducer, initialTodos);
 
   useEffect(() => {
     todos.forEach((item) => {
@@ -20,19 +22,15 @@ const TodoList = ({ filter }: ITodoListProps) => {
   }, []);
 
   const handleAdd = (newTodo: TTodo) => {
-    setTodos((prev) => [...prev, newTodo]);
+    dispatch({ type: 'TODO_ADD', newTodo });
     localStorage.setItem(newTodo.id, JSON.stringify(newTodo));
   };
   const handleDelete = (todoId: string) => {
-    const newTodos = todos.filter((todo) => todo.id !== todoId);
-    setTodos(newTodos);
+    dispatch({ type: 'TODO_DELETE', todoId });
     localStorage.removeItem(todoId);
   };
   const handleUpdate = (updatedTodo: TTodo) => {
-    const newTodos = todos.map((todo) => {
-      return todo.id === updatedTodo.id ? updatedTodo : todo;
-    });
-    setTodos(newTodos);
+    dispatch({ type: 'TODO_UPDATE', updatedTodo });
     localStorage.setItem(updatedTodo.id, JSON.stringify(updatedTodo));
   };
 
@@ -41,7 +39,6 @@ const TodoList = ({ filter }: ITodoListProps) => {
   //     return todo.isDone === true;
   //   }
   // });
-
   const filterd = getFilteredTodos(todos, filter);
   return (
     <TodoContainer>
@@ -53,13 +50,6 @@ const TodoList = ({ filter }: ITodoListProps) => {
       />
     </TodoContainer>
   );
-};
+}
 
 export default TodoList;
-
-const TodoContainer = styled.div`
-  position: relative;
-  margin-top: 8rem;
-  width: 100%;
-  height: 40rem;
-`;
